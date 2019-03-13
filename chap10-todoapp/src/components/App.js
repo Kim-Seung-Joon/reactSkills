@@ -72,6 +72,20 @@ class App extends Component {
     })
   }
 
+  _handleRemove = (id) =>{
+    const {todos} = this.state;
+    const index = todos.findIndex(todo => todo.id === id);
+
+    this.setState({
+      // toggle이랑 거의 같은데 토글은 진행/완료(T/F) 값을 변경해서 넣어주는거고
+      // 삭제는 인덱스를 찾아서 지운 것!
+      todos: [
+        ...todos.slice(0,index),
+        ...todos.slice(index+1,todos.length)
+      ]
+    });
+  }
+
 
   render() {
     // 초기 state가 2개 존재하므로 받는값도 2개이다.
@@ -80,13 +94,14 @@ class App extends Component {
    const {
      _handleChange,
      _handleInsert,
-     _handleToggle
+     _handleToggle,
+     _handleRemove
    } = this;
     return (
       <div>
         <PageTemplate>
           <TodoInput onChange={_handleChange} onInsert={_handleInsert} value={input}/>
-          <TodoList todos={todos} onToggle={_handleToggle}/>
+          <TodoList todos={todos} onToggle={_handleToggle} onRemove={_handleRemove}/>
         </PageTemplate>
       </div>
     );
