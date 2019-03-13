@@ -49,6 +49,29 @@ class App extends Component {
     })
   }
 
+  //to do item Toggle(수정, 삭제?)
+
+  _handleToggle = (id) => {
+    // todos는 내가 할 일을 문자로 적어놓은 텍스트와, 완료/진행 중인 상태값, 그리고 순서번호인 아이디가 들어있는 배열
+    const {todos} = this.state;
+    // 그래서 인덱스를 찾으려면 아이디를 찾으면 된다
+    const index = todos.findIndex(todo => todo.id ===id);
+
+    // 찾은 toggle의 done(T/F)의 값을 반전시킴
+    const toggled = {
+      ...todos[index],
+      done: !todos[index].done
+    }
+
+    this.setState({
+      todos: [
+        ...todos.slice(0, index),
+        toggled,
+        ...todos.slice(index+1, todos.length)
+      ]
+    })
+  }
+
 
   render() {
     // 초기 state가 2개 존재하므로 받는값도 2개이다.
@@ -56,13 +79,14 @@ class App extends Component {
    const {input,  todos} = this.state;
    const {
      _handleChange,
-     _handleInsert
+     _handleInsert,
+     _handleToggle
    } = this;
     return (
       <div>
         <PageTemplate>
           <TodoInput onChange={_handleChange} onInsert={_handleInsert} value={input}/>
-          <TodoList todos={todos}/>
+          <TodoList todos={todos} onToggle={_handleToggle}/>
         </PageTemplate>
       </div>
     );
