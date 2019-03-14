@@ -5,6 +5,11 @@ import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
 class TodoItem extends Component {
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.done !== nextProps.done;
+  }
+  
   render() {
     // done= 완료, children = 일정한 정보, onToggle= 일정완료의 상태변화, onRemove= 삭제
     // 미리 아래의 4개관련해서 this.props를 받아놓으면 아래에서 this.props.onToggle처럼 길게 쓸 필요가 없다(비구조화할당 이라고 한다.)
