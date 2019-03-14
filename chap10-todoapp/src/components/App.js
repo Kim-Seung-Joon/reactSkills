@@ -3,6 +3,12 @@ import PageTemplate from "./PageTemplate/PageTemplate";
 import TodoInput from './TodoInput/TodoInput';
 import TodoList from './TodoList/TodoList';
 
+
+const initialTodos = new Array(500).fill(0).map(
+  (foo, index) => ({id:index, text:`일정 ${index}`, done:false})
+)
+
+
 class App extends Component {
 
   state = {
@@ -10,10 +16,11 @@ class App extends Component {
     // 아무것도 없는 인풋상태와
     // 맨처음에 페이지를 보여줄때 디폴트값으로 2개정도는 있어야 하므로 1개의 임무완료값과 1개의 진행중인 값을 배열을 통해서 넣어준다.
     input: '',
-    todos:  [
-      {id: 0, text: '벨로퍼트와 함께하기', done: true},
-      {id: 1, text: '궁예보기', done:false}
-    ]
+    // todos:  [
+    //   {id: 0, text: '벨로퍼트와 함께하기', done: true},
+    //   {id: 1, text: '궁예보기', done:false}
+    // ]
+    todos: initialTodos,
   }
 
   // id(사실상 인덱스)의 초기값을 1로주고 계속 1씩 증가시킴
